@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>ShitMustGo - Hem</title>
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="/images/garbage-truck.png">
+  <!-- Bootstrap icons-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="/css/style2.css" rel="stylesheet" />
+</head>
+<body>
+<!-- Navigation-->
+<nav th:insert="~{fragments::navbar}"></nav>
+<!-- Header-->
+<header th:insert="~{fragments::header}"> </header>
+
+
+<!-- filtrering -->
+<div class="filtermom">
+<div class="filter">
+  <div class="uppdragKnapp">
+  <a sec:authorize="isAuthenticated()" href="/account/create" class="btn btn-outline-dark mt-auto">Skapa Uppdrag</a>
+  </div>
+  <div class="filterKnapp">
+  <form action="/home" method="post" class="book">
+    <label for="cities">
+      <select name="cities" id="cities" class="form-select">
+        <option value="" disabled selected>Välj stad...</option>
+        <option value="Stockholm">Stockholm</option>
+        <option value="Göteborg">Göteborg</option>
+        <option value="Malmö">Malmö</option>
+      </select>
+    </label>
+    <label for="Sorting">
+      <select name="sorting" id="Sorting" class="form-select">
+        <option value="" disabled selected>Sortera efter...</option>
+        <option value="HighPrice">Högsta pris</option>
+        <option value="LowPrice">Lägsta pris</option>
+        <option value="Recent">Senaste tillagda</option>
+      </select>
+    </label>
+    <label>
+    <input type="submit" value="Filtrera" class="btn btn-outline-dark mt-auto inputfilter">
+    </label>
+  </form>
+    <form action="/stopFilter" method="post">
+    <input type="submit" value="Ta bort filter" class="btn btn-outline-dark mt-auto inputfilter">
+    </form>
+  </div>
+</div>
+</div>
+<!-- Section-->
+<section class="py-5">
+  <div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+      <div class="col mb-5 " th:each="task : ${task}">
+        <div class="card h-100 pappabjörn">
+          <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem" th:text="${task.city}">Test</div>
+          <!-- Product image-->
+          <a class="home-atask-thumbnail" th:href="'/task/' + ${task.id}"><img class="card-img-top home-img-thumbnail" th:src="${task.image}" alt="..." /></a>
+          <!-- Product details-->
+          <div class="card-body p-4">
+            <div class="text-center">
+              <!-- Product name-->
+              <h5 class="fw-bolder" th:text="${task.title}">Fancy Product</h5>
+              <!-- Product price-->
+              <p th:text="${task.price} + ' kr'">$40.00 - $80.00</p>
+            </div>
+          </div>
+          <!-- Product actions-->
+          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="'/task/' + ${task.id}">Mer info</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="col mb-5">
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="pageView">
+  <a th:if="${currentPage > 0}" class="btn btn-outline-dark flex-shrink-0" th:href="'/home?page=' + ${currentPage-1}" th:text="Föregående" ></a>
+
+  <label class="pageLab" th:each=" i : ${#numbers.sequence(0 , numOfPages-1)}">
+    <p class="page"><a th:if="${i != currentPage}" th:href="'/home?page=' + ${i}" th:text="${i+1 + ' '}"></a></p>
+    <p class="pageChosen" th:if="${i == currentPage}" th:text="${i+1 + ' '}"></p>
+  </label>
+  <a th:if="${currentPage < numOfPages-1}" class="btn btn-outline-dark flex-shrink-0" th:href="'/home?page=' + ${currentPage+1}" th:text="Nästa"></a></button>
+</div>
+
+<!-- Footer-->
+<footer th:insert="~{fragment2::alt2}"></footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>

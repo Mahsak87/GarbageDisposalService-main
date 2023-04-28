@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>ShitMustGo - Shitchat</title>
+  <link rel="icon" type="image/x-icon" href="/images/garbage-truck.png">
+  <!-- Bootstrap icons-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="/css/style2.css" rel="stylesheet" />
+</head>
+<body>
+<!-- Navigation-->
+<nav th:insert="~{fragments::navbar}"></nav>
+
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+  enabled. Please enable
+  Javascript and reload this page!</h2></noscript>
+
+<section class="py-5">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="row gx-4 gx-lg-5 align-items-center">
+      <div class="col-md-6 img-resizing"><img class="card-img-top mb-5 mb-md-0" th:src="${task.image}" alt="..." /></div>
+      <div class="col-md-6">
+        <!--        <div class="small mb-1" th:text="'${task.id}">SKU: BST-498</div>-->
+        <h1 class="display-5 fw-bolder" th:text="${task.title}">Shop item template</h1>
+        <div class="fs-5 mb-5">
+          <span  th:text="${task.price} + ' kr'">$45.00</span>
+        </div>
+        <p class="lead" th:text="${task.description}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="main-content" class="container margin-bottom-60">
+  <div class="row">
+    <div class="col-md-6">
+      <form class="form-inline">
+        <div class="form-group">
+          <label for="connect">Anslut till chatten:</label>
+          <button id="connect" class="btn btn-outline-dark flex-shrink-0" type="submit">Anslut</button>
+          <button id="disconnect" class="btn btn-outline-dark flex-shrink-0" type="submit" disabled="disabled">Koppla bort
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <form class="form-inline" onsubmit="this.reset();">
+        <div class="form-group">
+          <label for="name">Meddelande</label>
+          <input type="text" id="name" class="form-control margin-bottom-10" placeholder="Ditt meddelande">
+        </div>
+        <button id="send" class="btn btn-outline-dark flex-shrink-0" type="submit">Skicka</button>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table id="conversation" class="table table-striped">
+        <thead>
+        <tr>
+          <th>Meddelanden</th>
+        </tr>
+        </thead>
+        <tbody id="greetings">
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<footer th:insert="~{fragment2::alt2}"></footer>
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script src="/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

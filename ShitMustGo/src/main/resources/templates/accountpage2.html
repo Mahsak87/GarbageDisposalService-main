@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Shit Must Go - Konto</title>
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="/images/garbage-truck.png">
+  <!-- Bootstrap icons-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="/css/style2.css" rel="stylesheet" />
+</head>
+<body>
+<nav th:insert="~{fragments::navbar}"></nav>
+<header class="py-5 header">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">Shit Must Go</h1>
+      <p class="lead fw-normal text-white-50 mb-0">För en grönare framtid</p>
+    </div>
+  </div>
+</header>
+<h2 th:text="'Välkommen ' + ${account}" class="text-center">Välkommen</h2>
+<section class="py-5">
+<h3 class="text-center">Dina publicerade bokningar:</h3>
+  <div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        <div class="col mb-5" th:each="task : ${task}">
+        <div class="card h-100 pappabjörn" >
+          <div th:if="${task.bookedId != null && !task.isAccepted}" class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Bokad</div>
+          <div th:if="${task.bookedId != null && task.isAccepted}" class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Genomfört Uppdrag</div>
+          <a  class="home-atask-thumbnail" th:href="'/task/' + ${task.id}"><img class="card-img-top home-img-thumbnail" th:src="${task.image}" alt="..." /></a>
+          <div class="card-body p-4">
+            <div class="text-center">
+              <h5 class="fw-bolder" th:text="${task.title}">Fancy Product</h5>
+              <p th:text="${task.price} + ' kr'">$40.00 - $80.00</p>
+            </div>
+          </div>
+          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="'/task/' + ${task.id}">Mer info</a></div>
+              <div class="text-center" style="margin-top: 10px"><a class="btn btn-outline-dark mt-auto" th:href="'/account/' + ${task.id} + '/delete'">Ta bort uppdrag</a></div>
+          </div>
+        </div>
+      </div>
+        <div class="thankyou account">
+        <h3 class="text-center">Dina Bokade Uppdrag:</h3>
+        </div>
+      <div class="col mb-5" th:each="task : ${bookedTask}">
+        <div class="card h-100 pappabjörn">
+          <div th:if="${task.bookedId != null && !task.isAccepted}" class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Bokad av dig</div>
+          <div th:if="${task.bookedId != null && task.isAccepted}" class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Genomfört Uppdrag</div>
+          <a th:href="'/task/' + ${task.id}"><img class="card-img-top" th:src="${task.image}" alt="..." /></a>
+          <div class="card-body p-4">
+            <div class="text-center">
+              <h5 class="fw-bolder" th:text="${task.title}">Special Item</h5>
+               <span th:text="${task.price} + ' kr'">$20.00</span>
+             </div>
+           </div>
+           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+             <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="'/task/' + ${task.id}">Mer info</a></div>
+
+           </div>
+         </div>
+       </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Footer-->
+<footer th:insert="~{fragments::footer}"></footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>
